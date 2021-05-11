@@ -1,7 +1,21 @@
 {
-  "name": "nahui-canvas",
+  "name": "nahui-react-canvas-draw",
   "version": "0.1.0",
-  "private": true,
+  "description": "A simple canvas-drawing component for React, with elementary properties like zoom, brush size, and color selection.",
+  "keywords": [
+    "canvas",
+    "draw",
+    "zoom",
+    "react",
+    "drawing"
+  ],
+  "homepage": "https://github.com/jdonlucas/nahui-react-cavas-draw",
+  "bugs": {
+    "url": "https://github.com/jdonlucas/nahui-react-cavas-draw/issues",
+    "email": "jdonlucas@ciencias.unam.mx"
+  },
+  "main": "index.js",
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -12,11 +26,14 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdonlucas/nahui-react-cavas-draw.git"
+  },
+  "author": "Jaime Donlucas jdonlucas@ciencias.unam.mx (mrzarape.com)",
+  "license": "MIT",
   "eslintConfig": {
     "extends": [
       "react-app",
