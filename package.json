@@ -1,6 +1,6 @@
 {
   "name": "nahui-react-canvas-draw",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A simple canvas-drawing component for React, with elementary properties like zoom, brush size, and color selection.",
   "keywords": [
     "canvas",
@@ -14,17 +14,20 @@
     "url": "https://github.com/jdonlucas/nahui-react-cavas-draw/issues",
     "email": "jdonlucas@ciencias.unam.mx"
   },
-  "main": "index.js",
+  "main": "./dist/index.js",
   "private": false,
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "scripts": {
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "publish:npm": "rm -rf dist && mkdir dist &&  babel ./src -d dist --copy-files"
   },
   "repository": {
     "type": "git",
@@ -33,10 +36,7 @@
   "author": "Jaime Donlucas jdonlucas@ciencias.unam.mx (mrzarape.com)",
   "license": "MIT",
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -49,5 +49,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.0",
+    "@babel/preset-react": "^7.13.13"
   }
 }
