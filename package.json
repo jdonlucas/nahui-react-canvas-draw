@@ -22,7 +22,6 @@
     "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -40,7 +39,6 @@
       "react-app/jest"
     ]
   },
-  "resolutions": { "react-scripts/**/postcss": "^8.2.10" },
   "browserslist": {
     "production": [
       ">0.2%",
