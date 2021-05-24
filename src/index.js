@@ -16,6 +16,10 @@ export default function NahuiCanvas(props) {
       dot_flag = false;
 
   var x = props.color ? props.color : 'black';
+  var backgroundColor = props.backgroundColor ? props.backgroundColor : 'white';
+  var canvasHeight = props.height ? props.height : 500;
+  var canvasWidth = props.width ? props.width : 1080;
+
 
   useEffect(() => {
     if (canvas && canvas.current) {
@@ -100,12 +104,12 @@ export default function NahuiCanvas(props) {
   }
 
   const canvasStyle = {
-    background: 'white',
+    background: backgroundColor,
     transform: 'scale(' + localScale + ')',
     transformOrigin: '0 0'
   };
 
   return (
-    <canvas ref={canvas} id="nahui-canvas" width={1080} height={500} style={canvasStyle}></canvas>
+    <canvas ref={canvas} id="nahui-canvas" width={canvasWidth} height={canvasHeight} style={canvasStyle}></canvas>
   )
 }
