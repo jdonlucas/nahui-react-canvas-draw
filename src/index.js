@@ -10,6 +10,8 @@ export default function NahuiCanvas(props) {
       currX = 0,
       prevY = 0,
       currY = 0,
+      scrollX = window.scrollX,
+      scrollY = window.scrollY,
       dot_flag = false;
 
   var x = props.color ? props.color : 'black';
@@ -21,14 +23,21 @@ export default function NahuiCanvas(props) {
       canvas.current.addEventListener("mousedown", findxyDown);
       canvas.current.addEventListener("mouseup", findxyUpOut);
       canvas.current.addEventListener("mouseout", findxyUpOut);
+      window.addEventListener('scroll', moveCursor);
       return () => {
         canvas.current.removeEventListener("mousemove", findxyMove);
         canvas.current.removeEventListener("mousedown", findxyDown);
         canvas.current.removeEventListener("mouseup", findxyUpOut);
         canvas.current.removeEventListener("mouseout", findxyUpOut);
+        window.removeEventListener('scroll', moveCursor);
       }
     }
   }, [canvas, props.scale, props.brushSize, props.color]);
+
+  const moveCursor = (e) => {
+    scrollX = e.path[1].scrollX;
+    scrollY = e.path[1].scrollY;
+  }
 
   const draw = () => {
     ctx.beginPath();
@@ -45,8 +54,8 @@ export default function NahuiCanvas(props) {
   }
 
   const findxyDown = (e) => {
-    currX = (e.clientX - canvas.current.offsetLeft) / localScale;
-    currY = (e.clientY - canvas.current.offsetTop) / localScale;
+    currX = (e.clientX - canvas.current.offsetLeft + scrollX) / localScale;
+    currY = (e.clientY - canvas.current.offsetTop + scrollY) / localScale;
 
     flag = true;
     dot_flag = true;
@@ -66,8 +75,8 @@ export default function NahuiCanvas(props) {
     if (flag) {
       prevX = currX;
       prevY = currY;
-      currX = (e.clientX - canvas.current.offsetLeft) / localScale;
-      currY = (e.clientY - canvas.current.offsetTop) / localScale;
+      currX = (e.clientX - canvas.current.offsetLeft + scrollX) / localScale;
+      currY = (e.clientY - canvas.current.offsetTop + scrollY) / localScale;
       draw();
     }
   }
