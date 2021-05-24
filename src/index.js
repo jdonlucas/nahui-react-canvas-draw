@@ -10,8 +10,8 @@ export default function NahuiCanvas(props) {
       currX = 0,
       prevY = 0,
       currY = 0,
-      scrollX = window.scrollX,
-      scrollY = window.scrollY,
+      scrollX = 0,
+      scrollY = 0,
       dot_flag = false;
 
   var x = props.color ? props.color : 'black';
@@ -23,20 +23,22 @@ export default function NahuiCanvas(props) {
       canvas.current.addEventListener("mousedown", findxyDown);
       canvas.current.addEventListener("mouseup", findxyUpOut);
       canvas.current.addEventListener("mouseout", findxyUpOut);
-      window.addEventListener('scroll', moveCursor);
+      parentScrollable = getScrollParent(canvas.current)
+      parentScrollable.addEventListener('scroll', moveCursor);
+      scrollX = parentScrollable.scrollLeft;
+      scrollY =  parentScrollable.scrollTop;
       return () => {
         canvas.current.removeEventListener("mousemove", findxyMove);
         canvas.current.removeEventListener("mousedown", findxyDown);
         canvas.current.removeEventListener("mouseup", findxyUpOut);
         canvas.current.removeEventListener("mouseout", findxyUpOut);
-        window.removeEventListener('scroll', moveCursor);
       }
     }
   }, [canvas, props.scale, props.brushSize, props.color]);
 
   const moveCursor = (e) => {
-    scrollX = e.path[1].scrollX;
-    scrollY = e.path[1].scrollY;
+    scrollX = e.target.scrollLeft;
+    scrollY = e.target.scrollTop;
   }
 
   const draw = () => {
@@ -80,7 +82,22 @@ export default function NahuiCanvas(props) {
       draw();
     }
   }
+  
+  const getScrollParent = (node) => {
+    const isElement = node instanceof HTMLElement;
+    const overflowY = isElement && window.getComputedStyle(node).overflowY;
+    const overflowX = isElement && window.getComputedStyle(node).overflowX;
+    const isScrollable = (overflowY !== 'visible' && overflowY !== 'hidden') || (overflowX !== 'visible' && overflowX !== 'hidden');
 
+    if (!node) {
+      return null;
+    } else if (isScrollable && ((node.scrollHeight >= node.clientHeight) || (node.scrollWidth >= node.clientWidth)) ) {
+      return node;
+    }
+
+    return getScrollParent(node.parentNode) || document.body;
+  }
+  
   const canvasStyle = {
     background: 'white',
     transform: 'scale(' + localScale + ')',
