@@ -6,6 +6,7 @@ export default function NahuiCanvas(props) {
   var localScale = props.scale ? props.scale : 1;
 
   var ctx, flag = false,
+      parentScrollable,
       prevX = 0,
       currX = 0,
       prevY = 0,
@@ -97,7 +98,7 @@ export default function NahuiCanvas(props) {
 
     return getScrollParent(node.parentNode) || document.body;
   }
-  
+
   const canvasStyle = {
     background: 'white',
     transform: 'scale(' + localScale + ')',
