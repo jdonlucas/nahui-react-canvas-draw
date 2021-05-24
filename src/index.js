@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 
-export default function NahuiCanvas(props) {
+export const NahuiCanvas = forwardRef((props, ref) => {
   const canvas = useRef(null);
 
   var localScale = props.scale ? props.scale : 1;
@@ -56,9 +56,17 @@ export default function NahuiCanvas(props) {
     ctx.closePath();
   }
 
-  const erase = () => {
-    ctx.clearRect(0, 0, 1080, 500);
-  }
+  useImperativeHandle(ref, () => ({
+    erase() {
+      ctx.clearRect(0, 0, 1080, 500);
+    },
+    undo() {
+      /* to be added */
+    },
+    canvas() {
+      return canvas.current
+    }
+  }))
 
   const findxyDown = (e) => {
     currX = (e.clientX - canvas.current.offsetLeft + scrollX) / localScale;
@@ -112,4 +120,4 @@ export default function NahuiCanvas(props) {
   return (
     <canvas ref={canvas} id="nahui-canvas" width={canvasWidth} height={canvasHeight} style={canvasStyle}></canvas>
   )
-}
+});
